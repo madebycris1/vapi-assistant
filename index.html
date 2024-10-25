@@ -5,21 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Embedded VAPI Voice Assistant</title>
   <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
     #vapi-assistant-container {
       width: 100%;
       max-width: 400px;
-      height: 300px;
-      border: 1px solid #ddd;
-      margin: 20px auto;
+      height: 100px; /* Reduced the height to make it compact */
+      margin: 40px auto;
       display: flex;
       align-items: center;
       justify-content: center;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background-color: #fff; /* White background */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for better visuals */
+    }
+    .loading-message {
+      font-size: 16px;
+      color: #666;
     }
   </style>
 </head>
 <body>
+  <!-- Inline container for VAPI Voice Assistant -->
   <div id="vapi-assistant-container">
-    Loading assistant...
+    <span class="loading-message">Loading assistant...</span>
   </div>
 
   <!-- VAPI Voice Assistant Script -->
@@ -43,7 +57,7 @@
           container: document.getElementById('vapi-assistant-container'),
         });
 
-        // Event listeners for logging
+        // Event listeners for logging and debugging
         vapiInstance.on('speech-start', () => console.log('Speech has started'));
         vapiInstance.on('speech-end', () => console.log('Speech has ended'));
         vapiInstance.on('call-start', () => console.log('Call has started'));
@@ -51,6 +65,10 @@
         vapiInstance.on('volume-level', (volume) => console.log(`Assistant volume level: ${volume}`));
         vapiInstance.on('message', (message) => console.log(message));
         vapiInstance.on('error', (e) => console.error(e));
+      };
+
+      g.onerror = function () {
+        console.error("Failed to load VAPI script. Please check the script URL or try again later.");
       };
     })(document, "script");
   </script>
