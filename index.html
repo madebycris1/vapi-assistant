@@ -12,8 +12,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9; /* Clean light background */
+      background-color: transparent; /* Transparent background */
     }
     #vapi-assistant-container {
       width: 80px;
@@ -22,10 +21,9 @@
       justify-content: center;
       align-items: center;
       border-radius: 50%; /* Round button */
-      background-color: #5dfeca; /* Soft teal color for button */
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+      background-color: rgba(0, 0, 0, 0); /* Transparent background for the button */
     }
-    #phone-icon {
+    #microphone-icon {
       width: 40px;
       height: 40px;
     }
@@ -35,7 +33,7 @@
 
   <!-- VAPI Assistant Button Container -->
   <div id="vapi-assistant-container">
-    <img id="phone-icon" src="https://unpkg.com/lucide-static@0.321.0/icons/phone.svg" alt="Assistant Button">
+    <img id="microphone-icon" src="https://unpkg.com/lucide-static@0.321.0/icons/mic.svg" alt="Assistant Button">
   </div>
 
   <!-- VAPI Voice Assistant Script -->
@@ -43,6 +41,19 @@
     var vapiInstance = null;
     const assistant = "6d2eec90-d625-45ca-b078-c5518c5df8ed"; // Your Assistant ID
     const apiKey = "a865bf32-b059-4558-a204-bdcb4367a437"; // Your VAPI API Key
+
+    // Custom button configuration
+    const buttonConfig = {
+      idle: {
+        icon: `https://unpkg.com/lucide-static@0.321.0/icons/mic.svg`, // Microphone icon for idle state
+      },
+      loading: {
+        icon: `https://unpkg.com/lucide-static@0.321.0/icons/loader-2.svg`, // Loader icon for loading state
+      },
+      active: {
+        icon: `https://unpkg.com/lucide-static@0.321.0/icons/mic.svg`, // Microphone icon for active state
+      },
+    };
 
     (function (d, t) {
       var g = document.createElement(t),
@@ -57,6 +68,7 @@
           apiKey: apiKey,
           assistant: assistant,
           container: document.getElementById('vapi-assistant-container'),
+          config: buttonConfig, // Apply custom buttonConfig
         });
 
         // Event listeners for debugging
