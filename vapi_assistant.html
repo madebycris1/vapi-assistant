@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Embedded VAPI Voice Assistant</title>
+  <style>
+    #vapi-assistant-container {
+      width: 100%;
+      max-width: 400px;
+      height: 300px;
+      border: 1px solid #ddd;
+      margin: 20px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="vapi-assistant-container">
+    Loading assistant...
+  </div>
+
+  <!-- VAPI Voice Assistant Script -->
+  <script>
+    var vapiInstance = null;
+    const assistant = "6d2eec90-d625-45ca-b078-c5518c5df8ed"; // Your Assistant ID
+    const apiKey = "a865bf32-b059-4558-a204-bdcb4367a437"; // Your VAPI API Key
+
+    (function (d, t) {
+      var g = document.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      g.src = "https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js";
+      g.defer = true;
+      g.async = true;
+      s.parentNode.insertBefore(g, s);
+
+      g.onload = function () {
+        vapiInstance = window.vapiSDK.run({
+          apiKey: apiKey,
+          assistant: assistant,
+          container: document.getElementById('vapi-assistant-container'),
+        });
+
+        // Event listeners for logging
+        vapiInstance.on('speech-start', () => console.log('Speech has started'));
+        vapiInstance.on('speech-end', () => console.log('Speech has ended'));
+        vapiInstance.on('call-start', () => console.log('Call has started'));
+        vapiInstance.on('call-end', () => console.log('Call has stopped'));
+        vapiInstance.on('volume-level', (volume) => console.log(`Assistant volume level: ${volume}`));
+        vapiInstance.on('message', (message) => console.log(message));
+        vapiInstance.on('error', (e) => console.error(e));
+      };
+    })(document, "script");
+  </script>
+</body>
+</html>
