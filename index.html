@@ -8,32 +8,34 @@
     body {
       margin: 0;
       padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-color: #f9f9f9; /* Clean light background */
     }
     #vapi-assistant-container {
-      width: 100%;
-      max-width: 400px;
-      height: 100px; /* Reduced the height to make it compact */
-      margin: 40px auto;
+      width: 80px;
+      height: 80px;
       display: flex;
-      align-items: center;
       justify-content: center;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      background-color: #fff; /* White background */
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for better visuals */
+      align-items: center;
+      border-radius: 50%; /* Round button */
+      background-color: #5dfeca; /* Soft teal color for button */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
     }
-    .loading-message {
-      font-size: 16px;
-      color: #666;
+    #phone-icon {
+      width: 40px;
+      height: 40px;
     }
   </style>
 </head>
 <body>
-  <!-- Inline container for VAPI Voice Assistant -->
+
+  <!-- VAPI Assistant Button Container -->
   <div id="vapi-assistant-container">
-    <span class="loading-message">Loading assistant...</span>
+    <img id="phone-icon" src="https://unpkg.com/lucide-static@0.321.0/icons/phone.svg" alt="Assistant Button">
   </div>
 
   <!-- VAPI Voice Assistant Script -->
@@ -57,7 +59,7 @@
           container: document.getElementById('vapi-assistant-container'),
         });
 
-        // Event listeners for logging and debugging
+        // Event listeners for debugging
         vapiInstance.on('speech-start', () => console.log('Speech has started'));
         vapiInstance.on('speech-end', () => console.log('Speech has ended'));
         vapiInstance.on('call-start', () => console.log('Call has started'));
@@ -72,5 +74,6 @@
       };
     })(document, "script");
   </script>
+
 </body>
 </html>
